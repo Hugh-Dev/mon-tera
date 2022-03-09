@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 from flask import Flask, request, render_template, url_for, redirect, jsonify
-from settings import PORT_FLASK, DEBUG, cnx
+from settings import PORT_FLASK, DEBUG, config
 import pandas as pd
 import os
 import datetime
-
+import mysql.connector
 
 app = Flask(__name__)
 
@@ -16,6 +16,7 @@ def index():
     if request.method == 'GET':
 
         try:
+            cnx = mysql.connector.connect(**config)
             if cnx.is_connected():
 
                 cursor = cnx.cursor()
@@ -47,6 +48,7 @@ def index():
     if request.method == 'POST':
         
         try:
+            cnx = mysql.connector.connect(**config)
             if cnx.is_connected():
 
                 name = request.form['name']
@@ -90,6 +92,7 @@ def CreateTypes():
     
     if request.method == 'POST':
 
+        cnx = mysql.connector.connect(**config)
         if cnx.is_connected():
             type_name = request.form['type_name']
             cursor = cnx.cursor()
@@ -121,6 +124,7 @@ def CreateStatus():
     
     if request.method == 'POST':
 
+        cnx = mysql.connector.connect(**config)
         if cnx.is_connected():
             status_name = request.form['status_name']
             cursor = cnx.cursor()
@@ -151,6 +155,7 @@ def createReading():
     if request.method == 'GET':
 
         try:
+            cnx = mysql.connector.connect(**config)
             if cnx.is_connected():
 
                 cursor = cnx.cursor()
@@ -173,6 +178,7 @@ def createReading():
     
     if request.method == 'POST':
 
+        cnx = mysql.connector.connect(**config)
         if cnx.is_connected():
 
             device_id = request.form['device_id']
@@ -227,6 +233,8 @@ def createReading():
 @app.route('/api/binnacle', methods=['GET'])
 def binnacle():
     if request.method == 'GET':
+
+        cnx = mysql.connector.connect(**config)
         if cnx.is_connected():
             cursor = cnx.cursor()
             qr = ("SELECT * FROM readings")
@@ -252,6 +260,8 @@ def binnacle():
 @app.route('/api/device/binnacles', methods=['GET'])
 def binnaclesdeviceId():
     if request.method == 'GET':
+
+        cnx = mysql.connector.connect(**config)
         if cnx.is_connected():
             device_id = request.args.get('device_id')
             cursor = cnx.cursor()
@@ -278,6 +288,8 @@ def binnaclesdeviceId():
 @app.route('/api/devices/type/binnacles', methods=['GET'])
 def binnaclestypesId():
     if request.method == 'GET':
+
+        cnx = mysql.connector.connect(**config)
         if cnx.is_connected():
             type_id = request.args.get('type_id')
             cursor = cnx.cursor()
@@ -303,6 +315,8 @@ def binnaclestypesId():
 @app.route('/api/devices', methods=['GET'])
 def devices():
     if request.method == 'GET':
+
+        cnx = mysql.connector.connect(**config)
         if cnx.is_connected():
             cursor = cnx.cursor()
             qr = ("SELECT * FROM devices")
@@ -330,6 +344,8 @@ def devices():
 @app.route('/api/device', methods=['GET'])
 def deviceId():
     if request.method == 'GET':
+
+        cnx = mysql.connector.connect(**config)
         id = request.args.get('id')
         cursor = cnx.cursor()
         qr = ("SELECT * FROM devices " "WHERE id={}".format(id))
@@ -353,6 +369,8 @@ def deviceId():
 @app.route('/api/type/device', methods=['GET'])
 def devicetypeId():
     if request.method == 'GET':
+
+        cnx = mysql.connector.connect(**config)
         type_id = request.args.get('type_id')
         cursor = cnx.cursor()
         qr = ("SELECT * FROM devices " "WHERE type_id={}".format(type_id))

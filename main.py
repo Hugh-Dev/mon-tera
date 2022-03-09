@@ -196,7 +196,7 @@ def devices():
             qr = ("SELECT * FROM devices")
             cursor.execute(qr)
             devices = {}
-            while cursor:
+            while True:
                 for (id, type_id, status_id, created_at, updated_at, current_kw, name) in cursor:
                     devices['id']= id
                     devices['type_id']= type_id
@@ -205,6 +205,7 @@ def devices():
                     devices['updated_at']= updated_at
                     devices['current_kw']= current_kw
                     devices['name']= name
+                break   
 
             print(devices)
             return jsonify(devices)

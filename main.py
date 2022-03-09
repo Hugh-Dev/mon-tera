@@ -98,8 +98,8 @@ def CreateStatus():
 
             # Make sure data is committed to the database
             cnx.commit()
-            cursor.close()
-            cnx.close()
+            #cursor.close()
+            #cnx.close()
             return render_template('template.status.html')
 
         else:

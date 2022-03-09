@@ -33,8 +33,13 @@ def index():
                 cursor = cnx.cursor()
                 qr = ("SELECT * FROM status ")
                 cursor.execute(qr)
+                CHOICES_STATUS = {}
                 for (status_id, status_name)  in cursor:
-                    print('id:{} - status:{}'.format(status_id, status_name))
+                    CHOICES_STATUS['id'] = status_id
+                    CHOICES_STATUS['name'] = status_name
+                print(CHOICES_STATUS)
+                return render_template('template.index.html', choices_status=CHOICES_STATUS )
+
                 
         except Exception as ex:
             print(ex)

@@ -48,7 +48,7 @@ def index():
 
 
 
-                return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES )
+                return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES, update_date=today)
 
                 
         except Exception as ex:
@@ -81,12 +81,13 @@ def index():
         
     
     if request.method == 'POST':
-        id = request.form['id']
         name = request.form['name']
-        type = request.form['tipodispositivoId']
+        type_id = request.form['type_id']
+        status_id = request.form['status_id']
         create_date = request.form['create_date']
-
-        print(id, name, type, create_date)
+        update_date = request.form['update_date']
+        current_kw = request.form['current_kw']
+        status_id = request.form['status_id']
         return render_template('template.400.html')
 
 

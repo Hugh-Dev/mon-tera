@@ -48,17 +48,8 @@
         <div class="col-md-6 col-lg-6">
           <form class="needs-validation" method="POST" action={{ url_for('index') }} novalidate>
             <div class="row g-3">
-              <div class="col-sm-2">
-                <label for="id" class="form-label">ID</label>
-                {% if id %}
-                  <input type="text" class="form-control form-control-sm" name="id" id="id" placeholder="" value="{{ id }}" readonly="true" required>
-                {% endif %}
-                <div class="invalid-feedback">
-                  Required.
-                </div>
-              </div>
   
-              <div class="col-sm-10">
+              <div class="col-sm-12">
                 <label for="name" class="form-label">Nombre de equipo</label>
                 <input type="text" class="form-control form-control-sm" name="name" id="name" placeholder="" value="" required>
                 <div class="invalid-feedback">
@@ -67,9 +58,9 @@
               </div>
   
               <div class="col-12">
-                <label for="tipodispositivoId" class="form-label">Tipo de dispositivo</label>
+                <label for="type_id" class="form-label">Tipo de dispositivo</label>
                 <div class="input-group has-validation">
-                  <select class="form-select form-select-sm" name="tipodispositivoId" id="tipodispositivoId" aria-label="tipodispositivoId">
+                  <select class="form-select form-select-sm" name="type_id" id="type_id" aria-label="tipodispositivoId">
                     <option>...</option>
                     {% for key, value in choices_types.items() %}
                           <option value="{{key}}">{{ value }}</option>
@@ -82,7 +73,7 @@
               </div>
 
               <div class="col-sm-12">
-                <label for="date" class="form-label">Fecha de alta</label>
+                <label for="create_date" class="form-label">Fecha de alta</label>
                 <input type="date" class="form-control form-control-sm" name="create_date" id="create_date" placeholder="" value="" required>
                 <div class="invalid-feedback">
                   Required.
@@ -98,7 +89,7 @@
               </div>
 
               <div class="col-sm-12">
-                <label for="update_date" class="form-label">Potencia actual</label>
+                <label for="current_kw" class="form-label">Potencia actual</label>
                 <div class="input-group input-group-sm mb-3">
                   <span class="input-group-text">kW</span>
                   <input type="number" class="form-control form-control-sm" name="current_kw" id="current_kw" placeholder="" value="" required>
@@ -109,9 +100,9 @@
               </div>
 
               <div class="col-12">
-                <label for="tipodispositivoId" class="form-label">Estatus</label>
+                <label for="status_id" class="form-label">Estatus</label>
                 <div class="input-group has-validation">
-                  <select class="form-select form-select-sm" name="tipodispositivoId" id="tipodispositivoId" aria-label="tipodispositivoId">
+                  <select class="form-select form-select-sm" name="status_id" id="status_id" aria-label="tipodispositivoId">
                     <option>...</option>
                     {% for key, value in choices_status.items() %}
                           <option value="{{key}}">{{ value }}</option>

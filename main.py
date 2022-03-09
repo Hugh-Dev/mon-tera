@@ -215,7 +215,7 @@ def devices():
         else:
             return render_template('template.400.html')
 
-@app.route('api/device', methods=['GET'])
+@app.route('api/id/device', methods=['GET'])
 def deviceID():
     if request.method == 'GET':
         id = request.args.get('id')

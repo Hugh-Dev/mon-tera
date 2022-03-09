@@ -48,30 +48,14 @@
         <div class="col-md-6 col-lg-6">
           <form class="needs-validation" method="POST" action={{ url_for('index') }} novalidate>
             <div class="row g-3">
-              <div class="col-sm-2">
-                <label for="id" class="form-label">ID</label>
-                {% if id %}
-                  <input type="text" class="form-control form-control-sm" name="id" id="id" placeholder="" value="{{ id }}" readonly="true" required>
-                {% endif %}
-                <div class="invalid-feedback">
-                  Required.
-                </div>
-              </div>
-  
-              <div class="col-sm-12">
-                <label for="name" class="form-label">Nombre de equipo</label>
-                <input type="text" class="form-control form-control-sm" name="name" id="name" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Required.
-                </div>
-              </div>
+           
   
               <div class="col-12">
-                <label for="tipodispositivoId" class="form-label">Tipo de dispositivo</label>
+                <label for="tipodispositivoId" class="form-label">ID dispositivo</label>
                 <div class="input-group has-validation">
                   <select class="form-select form-select-sm" name="tipodispositivoId" id="tipodispositivoId" aria-label="tipodispositivoId">
                     <option>...</option>
-                    {% for key, value in choices_types.items() %}
+                    {% for key, value in choices_devices_id.items() %}
                           <option value="{{key}}">{{ value }}</option>
                     {% endfor %}
                   </select>

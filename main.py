@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from random import choices
 from flask import Flask, request, render_template, url_for, redirect, jsonify
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
@@ -186,6 +187,64 @@ def CreateStatus():
         else:
         
             return redirect(url_for('index'))
+
+
+@app.route('/create/reading', methods=['GET', 'POST'])
+def createReading():
+    if request.method == 'GET':
+
+        try:
+            if cnx.is_connected():
+
+                cursor = cnx.cursor()
+
+                """Choices devices"""
+                devices_qr = ("SELECT id, name FROM devices ")
+                cursor.execute(devices_qr)
+                CHOICES_DEVICES_ID = {}
+                for (id, name) in cursor:
+                    CHOICES_DEVICES_ID[id] = name
+
+                """Choices """
+
+
+                return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID)
+
+                
+        except Exception as ex:
+            return render_template('template.400.html', msg=ex)
+        
+    
+    if request.method == 'POST':
+
+        if cnx.is_connected():
+            status_name = request.form['status_name']
+            print(status_name)
+            cursor = cnx.cursor()
+
+            add_status = (
+                "INSERT INTO status " 
+                "(status_name)" 
+                "VALUES (%(status_name)s)"
+            )
+
+            data_status = {
+                'status_name': status_name,
+                }
+
+            cursor.execute(add_status, data_status)
+
+            # Make sure data is committed to the database
+            cnx.commit()
+            #cursor.close()
+            #cnx.close()
+            return render_template('template.status.html')
+
+        else:
+        
+            return redirect(url_for('index'))
+
+
 
 @app.route('/api/devices', methods=['GET'])
 def devices():

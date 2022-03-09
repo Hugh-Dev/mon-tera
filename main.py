@@ -264,10 +264,10 @@ def binnacle():
             cursor = cnx.cursor()
             qr = ("SELECT * FROM readings")
             cursor.execute(qr)
-            redings = []
+            readings = []
             
             for (id, device_id, type_id, current_power, updated_at) in cursor:
-                redings.append({
+                readings.append({
                     'id':id,
                     'device_id':device_id, 
                     'type_id':type_id,
@@ -276,7 +276,7 @@ def binnacle():
                     })
 
             
-            return jsonify(redings)
+            return jsonify(readings)
 
         else:
             return render_template('template.400.html')

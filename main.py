@@ -82,43 +82,43 @@ def index():
     
     if request.method == 'POST':
         
-        if cnx.is_connected():
+        try:
+            if cnx.is_connected():
 
-            name = request.form['name']
-            type_id = request.form['type_id']
-            status_id = request.form['status_id']
-            create_date = request.form['create_date']
-            update_date = request.form['update_date']
-            current_kw = request.form['current_kw']
-            status_id = request.form['status_id']
+                name = request.form['name']
+                type_id = request.form['type_id']
+                status_id = request.form['status_id']
+                create_date = request.form['create_date']
+                update_date = request.form['update_date']
+                current_kw = request.form['current_kw']
+                status_id = request.form['status_id']
 
-            cursor = cnx.cursor()
+                cursor = cnx.cursor()
 
-            add_device = (
-                "INSERT INTO devices " 
-                "(name, type_name, created_at, updated_at, current_kw, status_id)" 
-                "VALUES (%(name)s, %(type_name)s, %(created_at)s, %(updated_at)s, %(current_kw)s, %(status_id)s)"
-            )
+                add_device = (
+                    "INSERT INTO devices " 
+                    "(name, type_id, created_at, updated_at, current_kw, status_id)" 
+                    "VALUES (%(name)s, %(type_id)s, %(created_at)s, %(updated_at)s, %(current_kw)s, %(status_id)s)"
+                )
 
-            data_device = {
-                'name':name,
-                'type_name': type_name,
-                'created_at':create_date,
-                'updated_at':update_date,
-                'current_kw':current_kw,
-                'status_id':status_id
-                }
+                data_device = {
+                    'name':name,
+                    'type_id': type_name,
+                    'created_at':create_date,
+                    'updated_at':update_date,
+                    'current_kw':current_kw,
+                    'status_id':status_id
+                    }
 
-            cursor.execute(add_device, data_device)
+                cursor.execute(add_device, data_device)
 
-            # Make sure data is committed to the database
-            cnx.commit()
-            #cursor.close()
-            #cnx.close()
-            return render_template('template.index.html')
+                # Make sure data is committed to the database
+                cnx.commit()
+                #cursor.close()
+                #cnx.close()
+                return render_template('template.index.html')
 
-        else:
-            print('++++++++++++++except+++++++++++++++++++')
+        except Exception as ex:
             return render_template('template.400.html', msg=ex)
 
 

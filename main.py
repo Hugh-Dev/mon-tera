@@ -199,8 +199,13 @@ def devices():
             for (id, type_id, status_id, created_at, updated_at, current_kw, name)  in cursor:
                 devices['id']= id
                 devices['type_id']= type_id
+                devices['status_id']= status_id
+                devices['created_at']= created_at
+                devices['updated_at']= updated_at
+                devices['current_kw']= current_kw
+                devices['name']= name
 
-            
+            print(devices)
             return jsonify(devices)
 
         else:

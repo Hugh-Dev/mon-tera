@@ -37,7 +37,8 @@ def index():
                 for (status_id, status_name)  in cursor:
                     CHOICES_STATUS['id'] = status_id
                     CHOICES_STATUS['name'] = status_name
-                print(CHOICES_STATUS)
+
+                print(type(cursor))
                 return render_template('template.index.html', choices_status=CHOICES_STATUS )
 
                 

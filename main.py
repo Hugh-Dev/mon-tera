@@ -30,7 +30,12 @@ def index():
         try:
             if cnx.is_connected():
                 cursor = cnx.cursor()
-                print('200')
+                cursor = cnx.cursor()
+                qr = ("SELECT * FROM status ")
+                cursor.execute(qr)
+                for (status_id, status_name)  in cursor:
+                    print('id:{} - status:{}'.format(status_id, status_name))
+                
         except Exception as ex:
             print(ex)
 

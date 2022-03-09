@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-from email import message
-from flask import Flask, message_flashed, request, render_template, url_for, redirect, jsonify
+from flask import Flask, request, render_template, url_for, redirect, jsonify
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
 import os
@@ -49,7 +48,7 @@ def index():
             if cnx.is_connected():
                 cursor.close()
                 cnx.close()
-            return redirect(url_for('index'))
+                return redirect(url_for('index'))
 
     if request.method == 'POST':
         

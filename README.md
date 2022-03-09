@@ -3,8 +3,7 @@
 1. https://montera.pythonanywhere.com/
 2. https://montera.pythonanywhere.com/create/status
 3. https://montera.pythonanywhere.com/create/type
-4. https://montera.pythonanywhere.com/api/binnacle
-5. https://montera.pythonanywhere.com/create/readings
+4. https://montera.pythonanywhere.com/create/reading
 
 
 ## Add data:

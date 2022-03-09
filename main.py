@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from crypt import methods
 from random import choices
 from flask import Flask, request, render_template, url_for, redirect, jsonify
 from settings import PORT_FLASK, DEBUG, cnx
@@ -245,7 +246,7 @@ def createReading():
                 'current_power': current_power,
                 'updated_at': updated_at
                 }
-                
+
             cursor = cnx.cursor()
             cursor.execute(add_reading, data_reading)
             cnx.commit()
@@ -256,6 +257,29 @@ def createReading():
             return render_template('template.400.html')
 
 
+@app.route('/api/binnacle', methods=['GET'])
+def binnacle():
+    if request.method == 'GET':
+        if cnx.is_connected():
+            cursor = cnx.cursor()
+            qr = ("SELECT * FROM readings")
+            cursor.execute(qr)
+            redings = []
+            
+            for (id, device_id, type_id, current_power, updated_at) in cursor:
+                redings.append({
+                    'id':id,
+                    'device_id':device_id, 
+                    'type_id':type_id,
+                    'current_power':current_power,
+                    'updated_at':updated_at,
+                    })
+
+            
+            return jsonify(redings)
+
+        else:
+            return render_template('template.400.html')
 
 @app.route('/api/devices', methods=['GET'])
 def devices():

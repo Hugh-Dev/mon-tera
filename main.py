@@ -37,7 +37,8 @@ def index():
 
 
                 cursor.close()
-                cnx.close()
+                """cursor.close()
+                cnx.close()"""
                 return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES, update_date=today)
         
        
@@ -75,8 +76,8 @@ def index():
 
                 cursor.execute(add_device, data_device)
                 cnx.commit()
-                cursor.close()
-                cnx.close()
+                """cursor.close()
+                cnx.close()"""
                 return redirect(url_for('index'))
 
         except Exception as ex:
@@ -106,8 +107,8 @@ def CreateTypes():
 
             cursor.execute(add_types, data_types)
             cnx.commit()
-            cursor.close()
-            cnx.close()
+            """cursor.close()
+            cnx.close()"""
             return render_template('template.types.html')
 
         else:
@@ -137,8 +138,8 @@ def CreateStatus():
 
             cursor.execute(add_status, data_status)
             cnx.commit()
-            cursor.close()
-            cnx.close()
+            """cursor.close()
+            cnx.close()"""
             return render_template('template.status.html')
 
         else:
@@ -162,8 +163,8 @@ def createReading():
                 for (id, name) in cursor:
                     CHOICES_DEVICES_ID[id] = name
 
-                cursor.close()
-                cnx.close()
+                """cursor.close()
+                cnx.close()"""
                 return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID, updated_at=today )
 
                 
@@ -212,8 +213,8 @@ def createReading():
                 cursor = cnx.cursor()
                 cursor.execute(add_reading, data_reading)
                 cnx.commit()
-                cursor.close()
-                cnx.close()
+                """cursor.close()
+                cnx.close()"""
                 return redirect(url_for('createReading'))
 
             else:
@@ -242,8 +243,8 @@ def binnacle():
                     'updated_at':updated_at,
                     })
 
-            cursor.close()
-            cnx.close()
+            """cursor.close()
+            cnx.close()"""
             return jsonify(readings)
 
         else:
@@ -268,8 +269,8 @@ def binnaclesdeviceId():
                     'updated_at':updated_at,
                     })
 
-            cursor.close()
-            cnx.close()
+            """cursor.close()
+            cnx.close()"""
             return jsonify(readings)
 
         else:
@@ -293,8 +294,8 @@ def binnaclestypesId():
                     'current_power':current_power,
                     'updated_at':updated_at,
                     })
-            cursor.close()
-            cnx.close()
+            """cursor.close()
+            cnx.close()"""
             return jsonify(readings)
 
         else:
@@ -320,8 +321,8 @@ def devices():
                     'name': name
                     })
 
-            cursor.close()
-            cnx.close()
+            """cursor.close()
+            cnx.close()"""
             return jsonify(devices)
 
         else:
@@ -345,8 +346,8 @@ def deviceId():
                     'current_kw':current_kw,
                     'name': name
                     })
-        cursor.close()
-        cnx.close()
+        """cursor.close()
+        cnx.close()"""
         return jsonify(device)
 
 
@@ -368,8 +369,8 @@ def devicetypeId():
                     'current_kw':current_kw,
                     'name': name
                     })
-        cursor.close()
-        cnx.close()
+        """cursor.close()
+        cnx.close()"""
         return jsonify(devices_type)
 
 if __name__ == "__main__":

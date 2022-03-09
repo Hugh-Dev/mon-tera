@@ -81,4 +81,4 @@ def CreateStatus():
         return True
 
 if __name__ == "__main__":
-    app.run(port=PORT_FLASK, debug=DEBUG)
+    app.run()

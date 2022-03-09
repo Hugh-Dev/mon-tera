@@ -84,7 +84,7 @@ def index():
 @app.route('/create/type', methods=['GET', 'POST'])
 def CreateTypes():
     if request.method == 'GET':
-        return render_template('template.status.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES)
+        return render_template('template.types.html')
     
     if request.method == 'POST':
 
@@ -118,7 +118,7 @@ def CreateTypes():
 @app.route('/create/status', methods=['GET', 'POST'])
 def CreateStatus():
     if request.method == 'GET':
-        return render_template('template.status.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES)
+        return render_template('template.status.html')
     
     if request.method == 'POST':
 

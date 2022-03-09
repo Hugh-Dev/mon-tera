@@ -216,8 +216,9 @@ def createReading():
         if cnx.is_connected():
 
             device_id = request.form['device_id']
-            updated_at = request.form['updated_at']
             current_power = request.form['current_power']
+            updated_at = request.form['updated_at']
+            
 
             cursor = cnx.cursor()
             qr = ("SELECT id, type_id, current_kw, name FROM devices " "WHERE id={}".format(device_id))
@@ -240,7 +241,7 @@ def createReading():
                 'device_id': result[0],
                 'type_id': result[1],
                 'current_power': current_power,
-                'updated_at':updated_at
+                'updated_at': updated_at
                 }
          
             cursor = cnx.cursor()

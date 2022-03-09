@@ -199,18 +199,14 @@ def createReading():
                 cursor = cnx.cursor()
 
                 """Choices devices"""
-                devices_qr = ("SELECT id, name FROM devices ")
+                devices_qr = ("SELECT id, name, type_id FROM devices ")
                 cursor.execute(devices_qr)
                 CHOICES_DEVICES_ID = {}
-                for (id, name) in cursor:
+                for (id, name, type_id) in cursor:
                     CHOICES_DEVICES_ID[id] = name
+                    CHOICES_DEVICES_ID['type_id'] = type_id
 
-                """Choices types"""
-                types_qr = ("SELECT * FROM types ")
-                cursor.execute(types_qr)
-                CHOICES_TYPES = {}
-                for (type_id, type_name)  in cursor:
-                    CHOICES_TYPES[type_id] = type_name
+
 
 
                 return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID, choices_types=CHOICES_TYPES, updated_at=today )

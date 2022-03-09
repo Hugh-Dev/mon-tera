@@ -242,13 +242,14 @@ def createReading():
             )
 
             data_reading = {
-                'device_id': result_list[0],
-                'type_id': result_list[1],
+                #'device_id': result_list[0],
+                #'type_id': result_list[1],
                 'current_power': current_power,
                 'updated_at':updated_at
                 }
 
             print(data_reading)
+            print(result_list)
 
             cursor = cnx.cursor()
             #cursor.execute(add_reading, data_reading)

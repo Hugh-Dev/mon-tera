@@ -215,8 +215,9 @@ def createReading():
                 cnx.commit()
 
                 return redirect(url_for('createReading'))
+
+            elif result[4] == 5:
                 
-            else:
                 message_flashed = 'El dispositivo se encuentra en matenimiento'
                 render_template('template.400.html', message=message_flashed)
 

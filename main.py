@@ -163,7 +163,6 @@ def CreateStatus():
 
         if cnx.is_connected():
             status_name = request.form['status_name']
-            print(status_name)
             cursor = cnx.cursor()
 
             add_status = (
@@ -202,7 +201,6 @@ def createReading():
                 devices_qr = ("SELECT id, name FROM devices ")
                 cursor.execute(devices_qr)
                 CHOICES_DEVICES_ID = {}
-                CHOICES_TYPES = {}
                 for (id, name) in cursor:
                     CHOICES_DEVICES_ID[id] = name
 
@@ -220,30 +218,24 @@ def createReading():
     if request.method == 'POST':
 
         if cnx.is_connected():
-            status_name = request.form['status_name']
-            print(status_name)
+            device_id = request.form['device_id']
+            updated_at = request.form['updated_at']
+            current_power = request.form['current_power']
             cursor = cnx.cursor()
+            qr = ("SELECT id, type_id, current_kw, name FROM devices " "WHERE id={}".format(device_id))
+            cursor.execute(qr)
+            result = []
+            for (id, type_id, current_kw, name) in cursor:
+                result.append({
+                    'id':id, 
+                    'type_id':type_id,
+                    'current_kw':current_kw,
+                    'name': name
+                    })
 
-            add_status = (
-                "INSERT INTO status " 
-                "(status_name)" 
-                "VALUES (%(status_name)s)"
-            )
-
-            data_status = {
-                'status_name': status_name,
-                }
-
-            cursor.execute(add_status, data_status)
-
-            # Make sure data is committed to the database
-            cnx.commit()
-            #cursor.close()
-            #cnx.close()
-            return render_template('template.status.html')
+            return jsonify(result)
 
         else:
-        
             return redirect(url_for('index'))
 
 

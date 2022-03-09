@@ -48,17 +48,8 @@
         <div class="col-md-6 col-lg-6">
           <form class="needs-validation" method="POST" action={{ url_for('CreateStatus') }} novalidate>
             <div class="row g-3">
-              <div class="col-sm-2">
-                <label for="id" class="form-label">ID</label>
-                {% if id %}
-                  <input type="text" class="form-control form-control-sm" name="id" id="id" placeholder="" value="{{ id }}" readonly="true" required>
-                {% endif %}
-                <div class="invalid-feedback">
-                  Required.
-                </div>
-              </div>
   
-              <div class="col-sm-10">
+              <div class="col-sm-12">
                 <label for="status_name" class="form-label">Nombre de estatus</label>
                 <input type="text" class="form-control form-control-sm" name="status_name" id="status_name" placeholder="" value="" required>
                 <div class="invalid-feedback">

@@ -78,6 +78,23 @@ def CreateStatus():
         return render_template('template.status.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES)
     
     if request.method == 'POST':
+        status_name = request.form['status_name']
+        cursor = cnx.cursor()
+
+        add_status = ("INSERT INTO status "
+              "(status_name)"
+              "VALUES (%(status_name)s)")
+
+        data_status = {
+            'status_name': status_name,
+            }
+        cursor.execute(add_status, data_status)
+
+        # Make sure data is committed to the database
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+        
         return True
 
 if __name__ == "__main__":

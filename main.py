@@ -209,7 +209,7 @@ def createReading():
 
 
 
-                return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID, choices_types=CHOICES_TYPES, updated_at=today )
+                return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID, updated_at=today )
 
                 
         except Exception as ex:

@@ -82,52 +82,42 @@ def index():
     
     if request.method == 'POST':
         
-        try:
-            if cnx.is_connected():
+        if cnx.is_connected():
 
-                name = request.form['name']
-                print(name)
-                type_id = request.form['type_id']
-                print(type_id)
-                status_id = request.form['status_id']
-                print(status_id)
-                create_date = request.form['create_date']
-                print(create_date)
-                update_date = request.form['update_date']
-                print(update_date)
-                current_kw = request.form['current_kw']
-                print(current_kw)
-                status_id = request.form['status_id']
-                print(status_id)
+            name = request.form['name']
+            type_id = request.form['type_id']
+            status_id = request.form['status_id']
+            create_date = request.form['create_date']
+            update_date = request.form['update_date']
+            current_kw = request.form['current_kw']
+            status_id = request.form['status_id']
 
-                cursor = cnx.cursor()
+            cursor = cnx.cursor()
 
-                add_device = (
-                    "INSERT INTO devices " 
-                    "(name, type_name, created_at, updated_at, current_kw, status_id)" 
-                    "VALUES (%(name)s, %(type_name)s, %(created_at)s, %(updated_at)s, %(current_kw)s, %(status_id)s)"
-                )
+            add_device = (
+                "INSERT INTO devices " 
+                "(name, type_name, created_at, updated_at, current_kw, status_id)" 
+                "VALUES (%(name)s, %(type_name)s, %(created_at)s, %(updated_at)s, %(current_kw)s, %(status_id)s)"
+            )
 
-                data_device = {
-                    'name':name,
-                    'type_name': type_name,
-                    'created_at':create_date,
-                    'updated_at':update_date,
-                    'current_kw':current_kw,
-                    'status_id':status_id
-                    }
+            data_device = {
+                'name':name,
+                'type_name': type_name,
+                'created_at':create_date,
+                'updated_at':update_date,
+                'current_kw':current_kw,
+                'status_id':status_id
+                }
 
-                print(data_device)
+            cursor.execute(add_device, data_device)
 
-                cursor.execute(add_device, data_device)
+            # Make sure data is committed to the database
+            cnx.commit()
+            #cursor.close()
+            #cnx.close()
+            return render_template('template.index.html')
 
-                # Make sure data is committed to the database
-                cnx.commit()
-                #cursor.close()
-                #cnx.close()
-                return render_template('template.index.html')
-
-        except Exception as ex:
+        else:
             print('++++++++++++++except+++++++++++++++++++')
             return render_template('template.400.html', msg=ex)
 

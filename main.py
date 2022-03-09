@@ -205,7 +205,7 @@ def createReading():
                 CHOICES_TYPES = {}
                 for (id, name, type_id) in cursor:
                     CHOICES_DEVICES_ID[id] = name
-                    CHOICES_TYPES['type_id'] = type_id
+                    CHOICES_TYPES[type_id] = type_id
 
 
 

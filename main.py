@@ -282,12 +282,37 @@ def binnacle():
             return render_template('template.400.html')
 
 @app.route('/api/device/binnacles', methods=['GET'])
-def binnacleId():
+def binnacledeviceId():
     if request.method == 'GET':
         if cnx.is_connected():
             device_id = request.args.get('device_id')
             cursor = cnx.cursor()
             qr = ("SELECT * FROM readings " "WHERE device_id={}".format(device_id))
+            cursor.execute(qr)
+            readings = []
+            
+            for (id, device_id, type_id, current_power, updated_at) in cursor:
+                readings.append({
+                    'id':id,
+                    'device_id':device_id, 
+                    'type_id':type_id,
+                    'current_power':current_power,
+                    'updated_at':updated_at,
+                    })
+
+            
+            return jsonify(readings)
+
+        else:
+            return render_template('template.400.html')
+
+@app.route('/api/devices/type/binnacles', methods=['GET'])
+def binnacledeviceId():
+    if request.method == 'GET':
+        if cnx.is_connected():
+            type_id = request.args.get('type_id')
+            cursor = cnx.cursor()
+            qr = ("SELECT * FROM readings " "WHERE type_id={}".format(type_id))
             cursor.execute(qr)
             readings = []
             

@@ -84,7 +84,11 @@ def CreateStatus():
             print(status_name)
             cursor = cnx.cursor()
 
-            add_status = ("INSERT INTO status " "(status_name)" "VALUES (%(status_name)s")
+            add_status = (
+                "INSERT INTO status " 
+                "(status_name)" 
+                "VALUES (%(status_name)s)"
+            )
 
             data_status = {
                 'status_name': status_name,

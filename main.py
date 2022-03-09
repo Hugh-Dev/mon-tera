@@ -222,15 +222,7 @@ def createReading():
             cursor = cnx.cursor()
             qr = ("SELECT id, type_id, current_kw, name FROM devices " "WHERE id={}".format(device_id))
             cursor.execute(qr)
-            #result = []
-            """for (id, type_id, current_kw, name) in cursor:
-                result.append({
-                    'id':id, 
-                    'type_id':type_id,
-                    'current_kw':current_kw,
-                    'name': name
-                    })
-"""
+  
             result = []
             for (id, type_id, current_kw, name) in cursor:
                 result.append(id)
@@ -250,19 +242,15 @@ def createReading():
                 'current_power': current_power,
                 'updated_at':updated_at
                 }
-
-            print(data_reading)
-            print(type(result))
-            print(result[0])
          
             cursor = cnx.cursor()
-            #cursor.execute(add_reading, data_reading)
-            #cnx.commit()
+            cursor.execute(add_reading, data_reading)
+            cnx.commit()
 
-            return jsonify(result)
+            return redirect(url_for('createReading'))
 
         else:
-            return redirect(url_for('index'))
+            return render_template('template.400.html')
 
 
 

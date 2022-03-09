@@ -239,15 +239,17 @@ def createReading():
             )
 
             data_reading = {
-                'device_id': result['id'],
-                'type_id': result['type_id'],
+                'device_id': result[0],
+                'type_id': result[1],
                 'current_power': current_power,
                 'updated_at':updated_at
                 }
 
+            print(data_reading)
+
             cursor = cnx.cursor()
-            cursor.execute(add_reading, data_reading)
-            cnx.commit()
+            #cursor.execute(add_reading, data_reading)
+            #cnx.commit()
 
             return jsonify(result)
 

@@ -193,10 +193,10 @@ def devices():
     if request.method == 'GET':
         if cnx.is_connected():
             cursor = cnx.cursor()
-            qr = ("SELECT * FROM types ")
+            qr = ("SELECT * FROM devices")
             cursor.execute(qr)
             devices = {}
-            for (id, type_id, status_id, created_at, updated_at, current_kw, name)  in cursor:
+            for (id, type_id, status_id, created_at, updated_at, current_kw, name) in cursor:
                 devices['id']= id
                 devices['type_id']= type_id
                 devices['status_id']= status_id

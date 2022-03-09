@@ -20,6 +20,15 @@ config = {
 
 cnx = mysql.connector.connect(**config)
 
+# Test
+try:
+    if cnx.is_connected():
+        cursor = cnx.cursor()
+        print('200')
+        cnx.close()
+except Exception as ex:
+    print(ex)
+
 #cnx.close()
 
 

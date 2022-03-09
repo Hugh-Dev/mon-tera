@@ -325,7 +325,6 @@ def binnacledeviceId():
                     'updated_at':updated_at,
                     })
 
-            
             return jsonify(readings)
 
         else:

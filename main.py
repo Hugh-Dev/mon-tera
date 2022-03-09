@@ -142,8 +142,6 @@ def CreateTypes():
                 }
 
             cursor.execute(add_types, data_types)
-
-            # Make sure data is committed to the database
             cnx.commit()
             #cursor.close()
             #cnx.close()
@@ -176,8 +174,6 @@ def CreateStatus():
                 }
 
             cursor.execute(add_status, data_status)
-
-            # Make sure data is committed to the database
             cnx.commit()
             #cursor.close()
             #cnx.close()
@@ -218,9 +214,11 @@ def createReading():
     if request.method == 'POST':
 
         if cnx.is_connected():
+
             device_id = request.form['device_id']
             updated_at = request.form['updated_at']
             current_power = request.form['current_power']
+
             cursor = cnx.cursor()
             qr = ("SELECT id, type_id, current_kw, name FROM devices " "WHERE id={}".format(device_id))
             cursor.execute(qr)
@@ -232,6 +230,24 @@ def createReading():
                     'current_kw':current_kw,
                     'name': name
                     })
+
+        
+            add_reading = (
+                "INSERT INTO readings " 
+                "(device_id, type_id, current_power, updated_at)" 
+                "VALUES (%(device_id)s, %(type_id)s, %(current_power)s, %(updated_at)s)"
+            )
+
+            data_reading = {
+                'device_id': result['id'],
+                'type_id': result['type_id'],
+                'current_power': current_power,
+                'updated_at':updated_at
+                }
+
+            cursor = cnx.cursor()
+            cursor.execute(add_reading, data_reading)
+            cnx.commit()
 
             return jsonify(result)
 

@@ -216,10 +216,9 @@ def devices():
             return render_template('template.400.html')
 
 @app.route('api/device', methods=['GET'])
-def DeviceID():
+def deviceID():
     if request.method == 'GET':
         id = request.args.get('id')
-
         return jsonify(id)
 
 

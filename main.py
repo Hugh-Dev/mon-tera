@@ -36,12 +36,12 @@ def index():
                 CHOICES_STATUS = {}
                 for (status_id, status_name)  in cursor:
                     CHOICES_STATUS[status_id] = status_name
-                    
+
                 return render_template('template.index.html', choices_status=CHOICES_STATUS )
 
                 
         except Exception as ex:
-            print(ex)
+            return render_template('template.index.html', msg=ex)
 
         if os.path.exists('./csv/dispositivos.csv'):
             
@@ -81,7 +81,41 @@ def index():
         return render_template('template.400.html')
 
 
-@app.route('/status', methods=['GET', 'POST'])
+@app.route('/create/type', methods=['GET', 'POST'])
+def CreateTypes():
+    if request.method == 'GET':
+        return render_template('template.status.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES)
+    
+    if request.method == 'POST':
+
+        if cnx.is_connected():
+            type_name = request.form['type_name']
+            cursor = cnx.cursor()
+
+            add_types = (
+                "INSERT INTO types " 
+                "(type_name)" 
+                "VALUES (%(type_name)s)"
+            )
+
+            data_types = {
+                'type_name': type_name,
+                }
+
+            cursor.execute(add_types, data_types)
+
+            # Make sure data is committed to the database
+            cnx.commit()
+            #cursor.close()
+            #cnx.close()
+            return render_template('template.types.html')
+
+        else:
+        
+            return redirect(url_for('index'))
+
+
+@app.route('/create/status', methods=['GET', 'POST'])
 def CreateStatus():
     if request.method == 'GET':
         return render_template('template.status.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES)

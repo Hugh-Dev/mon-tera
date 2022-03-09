@@ -195,20 +195,21 @@ def devices():
             cursor = cnx.cursor()
             qr = ("SELECT * FROM devices")
             cursor.execute(qr)
-            devices = {}
+            devices = []
             
             for (id, type_id, status_id, created_at, updated_at, current_kw, name) in cursor:
-                devices['id']= id
-                devices['type_id']= type_id
-                devices['status_id']= status_id
-                devices['created_at']= created_at
-                devices['updated_at']= updated_at
-                devices['current_kw']= current_kw
-                devices['name']= name
-            
+                devices.append({
+                    'id':id, 
+                    'type_id':type_id,
+                    'status_id':status_id,
+                    'created_at':created_at,
+                    'updated_at':updated_at,
+                    'current_kw':current_kw,
+                    'name': name
+                    })
 
-            js = json.dumps(devices)
-            return jsonify(js)
+            
+            return jsonify(devices)
 
         else:
             return render_template('template.400.html')

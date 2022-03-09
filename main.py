@@ -34,16 +34,16 @@ def index():
 
                 """Choices status"""
                 status_qr = ("SELECT * FROM status ")
-                status_result = cursor.execute(status_qr)
+                cursor.execute(status_qr)
                 CHOICES_STATUS = {}
-                for (status_id, status_name)  in status_result:
+                for (status_id, status_name)  in cursor:
                     CHOICES_STATUS[status_id] = status_name
 
                 """Choices types"""
                 types_qr = ("SELECT * FROM types ")
-                types_result = cursor.execute(types_qr)
+                cursor.execute(types_qr)
                 CHOICES_TYPES = {}
-                for (type_id, type_name)  in types_result:
+                for (type_id, type_name)  in cursor:
                     CHOICES_TYPES[type_id] = type_name
 
 

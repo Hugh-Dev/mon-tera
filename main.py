@@ -9,7 +9,7 @@ import datetime
 
 app = Flask(__name__)
 
-CHOICES_TYPES = {
+"""CHOICES_TYPES = {
     'Celda': 'celda',
     'Aerogenerador': 'aerogenerador',
     'Turbina hidroelectrica': 'turbina_hidroelectrica'
@@ -18,11 +18,10 @@ CHOICES_TYPES = {
 CHOICES_STATUS = {
     'En operacion':'1',
     'En mantenimiento':'0'
-}
+}"""
 
 today = datetime.datetime.today()
 
-print(today)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

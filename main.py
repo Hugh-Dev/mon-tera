@@ -119,6 +119,7 @@ def index():
                 return render_template('template.index.html')
 
         except Exception as ex:
+            print(ex)
             return render_template('template.400.html', msg=ex)
 
 

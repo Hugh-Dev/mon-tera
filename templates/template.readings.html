@@ -51,26 +51,11 @@
            
   
               <div class="col-12">
-                <label for="device_id" class="form-label">ID dispositivo</label>
+                <label for="device_id" class="form-label">Dispositivo</label>
                 <div class="input-group has-validation">
                   <select class="form-select form-select-sm" name="device_id" id="device_id" aria-label="device_id">
                     <option>...</option>
                     {% for key, value in choices_devices_id.items() %}
-                          <option value="{{key}}">{{ value }}</option>
-                    {% endfor %}
-                  </select>
-                  <div class="invalid-feedback">
-                    Required.
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-12">
-                <label for="type_id" class="form-label">Tipo de dispositivo</label>
-                <div class="input-group has-validation">
-                  <select class="form-select form-select-sm" name="type_id" id="type_id" aria-label="type_id">
-                    <option>...</option>
-                    {% for key, value in choices_types.items() %}
                           <option value="{{key}}">{{ value }}</option>
                     {% endfor %}
                   </select>

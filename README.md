@@ -47,7 +47,7 @@
 1. Clone the repository:
 
 ```
-$ git clone hhttps://github.com/Hugh-Dev/mon-tera
+$ git clone https://github.com/Hugh-Dev/mon-tera
 ```
 
 2. Go to the cloned directory:

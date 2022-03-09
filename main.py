@@ -223,17 +223,17 @@ def createReading():
             qr = ("SELECT id, type_id, current_kw, name FROM devices " "WHERE id={}".format(device_id))
             cursor.execute(qr)
             result = []
-            for (id, type_id, current_kw, name) in cursor:
+            """for (id, type_id, current_kw, name) in cursor:
                 result.append({
                     'id':id, 
                     'type_id':type_id,
                     'current_kw':current_kw,
                     'name': name
                     })
-
-            result_list = []
+"""
+            result = []
             for (id, type_id, current_kw, name) in cursor:
-                result_list.append(id, type_id, current_kw, name)
+                result.append(id, type_id, current_kw, name)
         
             add_reading = (
                 "INSERT INTO readings " 
@@ -242,15 +242,16 @@ def createReading():
             )
 
             data_reading = {
-                #'device_id': result_list[0],
-                #'type_id': result_list[1],
+                'device_id': result[0],
+                'type_id': result[1],
                 'current_power': current_power,
                 'updated_at':updated_at
                 }
 
             print(data_reading)
             print(type(result))
-
+            print(result[0])
+         
             cursor = cnx.cursor()
             #cursor.execute(add_reading, data_reading)
             #cnx.commit()

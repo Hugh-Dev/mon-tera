@@ -72,7 +72,7 @@ def index():
         return render_template('template.400.html')
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/status', methods=['GET', 'POST'])
 def CreateStatus():
     if request.method == 'GET':
         return render_template('template.status.html')

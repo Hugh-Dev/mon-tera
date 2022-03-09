@@ -82,14 +82,13 @@ def CreateStatus():
         print(status_name)
         cursor = cnx.cursor()
 
-        add_status = ("INSERT INTO status "
-              "(status_name)"
-              "VALUES (%(status_name)s)")
+        add_status = ("INSERT INTO status " "(status_name)" "VALUES ({})".format(status_name))
 
         data_status = {
             'status_name': status_name,
             }
-        cursor.execute(add_status, data_status)
+            
+        cursor.execute(add_status)
 
         # Make sure data is committed to the database
         cnx.commit()

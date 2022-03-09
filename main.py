@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from random import choices
 from flask import Flask, request, render_template, url_for, redirect
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
@@ -29,15 +30,26 @@ def index():
 
         try:
             if cnx.is_connected():
-                cursor = cnx.cursor()
-                cursor = cnx.cursor()
-                qr = ("SELECT * FROM status ")
-                cursor.execute(qr)
+
+                """Choices status"""
+                cursor_status = cnx.cursor()
+                status_qr = ("SELECT * FROM status ")
+                status_result = cursor_status.execute(status_qr)
                 CHOICES_STATUS = {}
-                for (status_id, status_name)  in cursor:
+                for (status_id, status_name)  in status_result:
                     CHOICES_STATUS[status_id] = status_name
 
-                return render_template('template.index.html', choices_status=CHOICES_STATUS )
+                """Choices types"""
+                cursor_types = cnx.cursor()
+                types_qr = ("SELECT * FROM types ")
+                types_result = cursor_types.execute(types_qr)
+                CHOICES_TYPES = {}
+                for (type_id, type_name)  in types_result:
+                    CHOICES_TYPES[type_id] = type_name
+
+
+
+                return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES )
 
                 
         except Exception as ex:
@@ -67,8 +79,6 @@ def index():
                 count_id += 1
             id = count_id
             return render_template('template.index.html', choices_types=CHOICES_TYPES, id=id, update_date=today)
-            
-
         
     
     if request.method == 'POST':

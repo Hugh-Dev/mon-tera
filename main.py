@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template, url_for, redirect
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
 import os
@@ -78,24 +78,29 @@ def CreateStatus():
         return render_template('template.status.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES)
     
     if request.method == 'POST':
-        status_name = request.form['status_name']
-        print(status_name)
-        cursor = cnx.cursor()
 
-        add_status = ("INSERT INTO status " "(status_name)" "VALUES ({})".format(status_name))
+        if cnx.is_connected():
+            status_name = request.form['status_name']
+            print(status_name)
+            cursor = cnx.cursor()
 
-        data_status = {
-            'status_name': status_name,
-            }
-            
-        cursor.execute(add_status)
+            add_status = ("INSERT INTO status " "(status_name)" "VALUES ({})".format(status_name))
 
-        # Make sure data is committed to the database
-        cnx.commit()
-        cursor.close()
-        cnx.close()
+            data_status = {
+                'status_name': status_name,
+                }
+
+            cursor.execute(add_status)
+
+            # Make sure data is committed to the database
+            cnx.commit()
+            cursor.close()
+            cnx.close()
+            return render_template('template.status.html')
+
+        else:
         
-        return True
+            return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run()

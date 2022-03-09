@@ -30,18 +30,18 @@ def index():
         try:
             if cnx.is_connected():
 
+                cursor = cnx.cursor()
+
                 """Choices status"""
-                cursor_status = cnx.cursor()
                 status_qr = ("SELECT * FROM status ")
-                status_result = cursor_status.execute(status_qr)
+                status_result = cursor.execute(status_qr)
                 CHOICES_STATUS = {}
                 for (status_id, status_name)  in status_result:
                     CHOICES_STATUS[status_id] = status_name
 
                 """Choices types"""
-                cursor_types = cnx.cursor()
                 types_qr = ("SELECT * FROM types ")
-                types_result = cursor_types.execute(types_qr)
+                types_result = cursor.execute(types_qr)
                 CHOICES_TYPES = {}
                 for (type_id, type_name)  in types_result:
                     CHOICES_TYPES[type_id] = type_name

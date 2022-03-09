@@ -195,7 +195,7 @@ def createReading():
 
             print(result[4])
 
-            if result[4] != 5:
+            if result[4] == 4:
 
                 add_reading = (
                     "INSERT INTO readings " 
@@ -215,6 +215,7 @@ def createReading():
                 cnx.commit()
 
                 return redirect(url_for('createReading'))
+                
             else:
                 message_flashed = 'El dispositivo se encuentra en matenimiento'
                 render_template('template.400.html', message=message_flashed)

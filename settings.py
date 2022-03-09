@@ -8,6 +8,7 @@ from mysql.connector import Error
 # SECURITY: secret host used in production!
 PORT_FLASK = config('PORT_FLASK')
 DEBUG = config('DEBUG')
+
 config = {
     
     'host':config('HOST'),

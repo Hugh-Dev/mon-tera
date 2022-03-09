@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from email import message
 from flask import Flask, message_flashed, request, render_template, url_for, redirect, jsonify
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
@@ -161,15 +162,12 @@ def createReading():
                 for (id, name) in cursor:
                     CHOICES_DEVICES_ID[id] = name
 
-
-
-
                 return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID, updated_at=today )
 
                 
         except Exception as ex:
             print(ex)
-            return render_template('template.400.html', msg=ex)
+            return render_template('template.400.html', message=ex)
         
     
     if request.method == 'POST':
@@ -194,6 +192,8 @@ def createReading():
                 result.append(status_id)
 
             cursor.close()
+
+            print(result[4])
 
             if result[4] != 5:
 

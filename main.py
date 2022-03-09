@@ -16,33 +16,33 @@ today = datetime.datetime.today()
 def index():
     if request.method == 'GET':
 
-        #try:
-        if cnx.is_connected():
+        try:
+            if cnx.is_connected():
 
-            cursor = cnx.cursor()
+                cursor = cnx.cursor()
 
-            """Choices status"""
-            status_qr = ("SELECT * FROM status ")
-            cursor.execute(status_qr)
-            CHOICES_STATUS = {}
-            for (status_id, status_name)  in cursor:
-                CHOICES_STATUS[status_id] = status_name
+                """Choices status"""
+                status_qr = ("SELECT * FROM status ")
+                cursor.execute(status_qr)
+                CHOICES_STATUS = {}
+                for (status_id, status_name)  in cursor:
+                    CHOICES_STATUS[status_id] = status_name
 
-            """Choices types"""
-            types_qr = ("SELECT * FROM types ")
-            cursor.execute(types_qr)
-            CHOICES_TYPES = {}
-            for (type_id, type_name)  in cursor:
-                CHOICES_TYPES[type_id] = type_name
+                """Choices types"""
+                types_qr = ("SELECT * FROM types ")
+                cursor.execute(types_qr)
+                CHOICES_TYPES = {}
+                for (type_id, type_name)  in cursor:
+                    CHOICES_TYPES[type_id] = type_name
 
 
-
-            return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES, update_date=today)
+                cursor.close()
+                cnx.close()
+                return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES, update_date=today)
         
-        else:
-            return render_template('template.400.html', message='400')  
-        #except Exception as ex:
-        #    return render_template('template.400.html', message=ex)
+       
+        except Exception as ex:
+            return render_template('template.400.html', message=ex)
 
     if request.method == 'POST':
         
@@ -75,12 +75,12 @@ def index():
 
                 cursor.execute(add_device, data_device)
                 cnx.commit()
-          
+                cursor.close()
+                cnx.close()
                 return redirect(url_for('index'))
 
         except Exception as ex:
-            print(ex)
-            return render_template('template.400.html', msg=ex)
+            return render_template('template.400.html', message=ex)
 
 
 @app.route('/create/type', methods=['GET', 'POST'])
@@ -106,12 +106,11 @@ def CreateTypes():
 
             cursor.execute(add_types, data_types)
             cnx.commit()
-            #cursor.close()
-            #cnx.close()
+            cursor.close()
+            cnx.close()
             return render_template('template.types.html')
 
         else:
-        
             return redirect(url_for('index'))
 
 
@@ -138,8 +137,8 @@ def CreateStatus():
 
             cursor.execute(add_status, data_status)
             cnx.commit()
-            #cursor.close()
-            #cnx.close()
+            cursor.close()
+            cnx.close()
             return render_template('template.status.html')
 
         else:
@@ -163,11 +162,12 @@ def createReading():
                 for (id, name) in cursor:
                     CHOICES_DEVICES_ID[id] = name
 
+                cursor.close()
+                cnx.close()
                 return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID, updated_at=today )
 
                 
         except Exception as ex:
-            print(ex)
             return render_template('template.400.html', message=ex)
         
     
@@ -194,8 +194,6 @@ def createReading():
 
             cursor.close()
 
-            print(result[4])
-
             if result[4] == 4:
 
                 add_reading = (
@@ -214,14 +212,16 @@ def createReading():
                 cursor = cnx.cursor()
                 cursor.execute(add_reading, data_reading)
                 cnx.commit()
+                cursor.close()
+                cnx.close()
                 return redirect(url_for('createReading'))
 
             else:
                 message_flashed = 'El dispositivo se encuentra en matenimiento'
-                return render_template('template.400.html', message=message_flashed)
+                return render_template('template.400.html', message_flashe=message_flashed)
 
         else:
-            return render_template('template.400.html')
+            return render_template('template.400.html', message='400')
 
 
 @app.route('/api/binnacle', methods=['GET'])
@@ -242,11 +242,12 @@ def binnacle():
                     'updated_at':updated_at,
                     })
 
-            
+            cursor.close()
+            cnx.close()
             return jsonify(readings)
 
         else:
-            return render_template('template.400.html')
+            return render_template('template.400.html', message='400')
 
 @app.route('/api/device/binnacles', methods=['GET'])
 def binnaclesdeviceId():
@@ -267,11 +268,12 @@ def binnaclesdeviceId():
                     'updated_at':updated_at,
                     })
 
-            
+            cursor.close()
+            cnx.close()
             return jsonify(readings)
 
         else:
-            return render_template('template.400.html')
+            return render_template('template.400.html', message='400')
 
 @app.route('/api/devices/type/binnacles', methods=['GET'])
 def binnaclestypesId():
@@ -291,11 +293,12 @@ def binnaclestypesId():
                     'current_power':current_power,
                     'updated_at':updated_at,
                     })
-
+            cursor.close()
+            cnx.close()
             return jsonify(readings)
 
         else:
-            return render_template('template.400.html')
+            return render_template('template.400.html', message='400')
 
 @app.route('/api/devices', methods=['GET'])
 def devices():
@@ -317,11 +320,12 @@ def devices():
                     'name': name
                     })
 
-            
+            cursor.close()
+            cnx.close()
             return jsonify(devices)
 
         else:
-            return render_template('template.400.html')
+            return render_template('template.400.html', message='400')
 
 @app.route('/api/device', methods=['GET'])
 def deviceId():
@@ -341,7 +345,8 @@ def deviceId():
                     'current_kw':current_kw,
                     'name': name
                     })
-
+        cursor.close()
+        cnx.close()
         return jsonify(device)
 
 
@@ -363,7 +368,8 @@ def devicetypeId():
                     'current_kw':current_kw,
                     'name': name
                     })
-
+        cursor.close()
+        cnx.close()
         return jsonify(devices_type)
 
 if __name__ == "__main__":

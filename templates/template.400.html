@@ -46,7 +46,10 @@
                 {{message}}
             {% endif %}  
           </div>
-          <a class="btn btn-primary text-end" href="https://montera.pythonanywhere.com/create/reading" role="button">Volver</a>
+          {% if message_flashe %}
+                {{message_flashe}}
+                <a class="btn btn-primary text-end" href="https://montera.pythonanywhere.com/create/reading" role="button">Volver</a>
+          {% endif %} 
         </h2>
       </div>
     </main>

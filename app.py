@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, request, render_template, url_for
-from settings import PORT, DEBUG, cnx
+from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
 import os
 import datetime
@@ -72,5 +72,13 @@ def index():
         return render_template('template.400.html')
 
 
+@app.route('/', methods=['GET', 'POST'])
+def CreateStatus():
+    if request.method == 'GET':
+        return render_template('template.status.html')
+    
+    if request.method == 'POST':
+        return True
+
 if __name__ == "__main__":
-    app.run(port=PORT, debug=DEBUG)
+    app.run(port=PORT_FLASK, debug=DEBUG)

@@ -206,7 +206,7 @@ def devices():
                 devices['name']= name
 
             print(devices)
-            return jsonify(devices)
+            return jsonify(cursor)
 
         else:
             return render_template('template.400.html')

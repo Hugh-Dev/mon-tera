@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from crypt import methods
 from random import choices
+from urllib import response
 from flask import Flask, request, render_template, url_for, redirect, jsonify
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
@@ -188,7 +189,7 @@ def CreateStatus():
         
             return redirect(url_for('index'))
 
-@app.route('/devices', methods=['GET'])
+@app.route('api/devices', methods=['GET'])
 def devices():
     if request.method == 'GET':
         if cnx.is_connected():
@@ -214,6 +215,12 @@ def devices():
         else:
             return render_template('template.400.html')
 
+@app.route('api/device', methods=['GET'])
+def DeviceID():
+    if request.method == 'GET':
+        id = request.args.get('id')
+
+        return jsonify(id)
 
 
 

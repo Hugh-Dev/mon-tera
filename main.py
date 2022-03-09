@@ -230,7 +230,9 @@ def createReading():
                 result.append(type_id)
                 result.append(current_kw)
                 result.append(name)
-        
+
+            cursor.close()
+
             add_reading = (
                 "INSERT INTO readings " 
                 "(device_id, type_id, current_power, updated_at)" 
@@ -243,7 +245,8 @@ def createReading():
                 'current_power': current_power,
                 'updated_at': updated_at
                 }
-         
+                
+            cursor = cnx.cursor()
             cursor.execute(add_reading, data_reading)
             cnx.commit()
 

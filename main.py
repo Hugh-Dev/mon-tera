@@ -35,8 +35,8 @@ def index():
                 for (type_id, type_name)  in cursor:
                     CHOICES_TYPES[type_id] = type_name
 
+                print(cursor.fetchall())
 
-                cursor.close()
                 """cursor.close()
                 cnx.close()"""
                 return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES, update_date=today)
@@ -44,6 +44,12 @@ def index():
        
         except Exception as ex:
             return render_template('template.400.html', message=ex)
+
+        finally:
+            if cnx.is_connected():
+                cursor.close()
+                cnx.close()
+            return redirect(url_for('index'))
 
     if request.method == 'POST':
         

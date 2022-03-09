@@ -35,10 +35,8 @@ def index():
                 cursor.execute(qr)
                 CHOICES_STATUS = {}
                 for (status_id, status_name)  in cursor:
-                    CHOICES_STATUS['id'] = status_id
-                    CHOICES_STATUS['name'] = status_name
-
-                print(type(cursor))
+                    CHOICES_STATUS[status_id] = status_name
+                    
                 return render_template('template.index.html', choices_status=CHOICES_STATUS )
 
                 

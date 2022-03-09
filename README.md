@@ -1,21 +1,21 @@
 ## Urls:
 
 1. https://montera.pythonanywhere.com/
-2. https://montera.pythonanywhere.com/api/device?id=6
-3. https://montera.pythonanywhere.com/api/type/device?type_id=1
+2. https://montera.pythonanywhere.com/create/status
+3. https://montera.pythonanywhere.com/create/type
 4. https://montera.pythonanywhere.com/api/binnacle
-5. https://montera.pythonanywhere.com/api/device/binnacles?device_id=7
-6. https://montera.pythonanywhere.com/api/devices/type/binnacles?type_id=1
+5. https://montera.pythonanywhere.com/create/readings
+
 
 ## Add data:
 
-![1](/static/screenshot/1.png)
+![4](/static/screenshot/4.png)
 
 ![2](/static/screenshot/2.png)
 
 ![3](/static/screenshot/3.png)
 
-![4](/static/screenshot/4.png)
+![1](/static/screenshot/1.png)
 
 ## EndPoint:
 1. https://montera.pythonanywhere.com/api/devices

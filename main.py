@@ -249,7 +249,7 @@ def createReading():
                 }
 
             print(data_reading)
-            print(result_list)
+            print(type(result))
 
             cursor = cnx.cursor()
             #cursor.execute(add_reading, data_reading)

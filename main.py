@@ -87,8 +87,8 @@ def index():
 
                 name = request.form['name']
                 type_id = request.form['type_id']
-                create_date = request.form['create_date']
-                update_date = request.form['update_date']
+                created_at = request.form['created_at']
+                updated_at = request.form['updated_at']
                 current_kw = request.form['current_kw']
                 status_id = request.form['status_id']
 
@@ -103,8 +103,8 @@ def index():
                 data_device = {
                     'name':name,
                     'type_id': type_id,
-                    'created_at':create_date,
-                    'updated_at':update_date,
+                    'created_at':created_at,
+                    'updated_at':updated_at,
                     'current_kw':current_kw,
                     'status_id':status_id
                     }

@@ -212,6 +212,7 @@ def createReading():
 
                 
         except Exception as ex:
+            print(ex)
             return render_template('template.400.html', msg=ex)
         
     

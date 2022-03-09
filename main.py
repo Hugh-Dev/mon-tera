@@ -56,7 +56,7 @@ def index():
         except Exception as ex:
             return render_template('template.400.html', msg=ex)
 
-        if os.path.exists('./csv/dispositivos.csv'):
+        """if os.path.exists('./csv/dispositivos.csv'):
             
             dispositivos = pd.read_csv('./csv/dispositivos.csv')
             id = dispositivos['id']
@@ -79,7 +79,7 @@ def index():
             else:
                 count_id += 1
             id = count_id
-            return render_template('template.index.html', choices_types=CHOICES_TYPES, id=id, update_date=today)
+            return render_template('template.index.html', choices_types=CHOICES_TYPES, id=id, update_date=today)"""
         
     
     if request.method == 'POST':

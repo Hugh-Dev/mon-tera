@@ -214,7 +214,7 @@ def devices():
             return render_template('template.400.html')
 
 @app.route('/api/device', methods=['GET'])
-def deviceID():
+def deviceId():
     if request.method == 'GET':
         id = request.args.get('id')
         cursor = cnx.cursor()
@@ -236,7 +236,7 @@ def deviceID():
 
 
 @app.route('/api/type/device', methods=['GET'])
-def deviceID():
+def devicetypeId():
     if request.method == 'GET':
         type_id = request.args.get('type_id')
         cursor = cnx.cursor()

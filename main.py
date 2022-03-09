@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+from crypt import methods
 from random import choices
-from flask import Flask, request, render_template, url_for, redirect
+from flask import Flask, request, render_template, url_for, redirect, jsonify
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
 import os
@@ -186,6 +187,27 @@ def CreateStatus():
         else:
         
             return redirect(url_for('index'))
+
+@app.route("/devices", methods['GET'])
+def devices():
+    if request.method == 'GET':
+        if cnx.is_connected():
+            cursor = cnx.cursor()
+            qr = ("SELECT * FROM types ")
+            cursor.execute(qr)
+            devives = {}
+            for (id, type_id, status_id, created_at, updated_at, current_kw, name)  in cursor:
+                devices['id']= id
+                devices['type_id']= type_id
+
+            
+            return jsonify(devices)
+
+        else:
+            return render_template('template.400.html')
+
+
+
 
 if __name__ == "__main__":
     app.run()

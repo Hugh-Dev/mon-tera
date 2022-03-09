@@ -75,7 +75,7 @@ def index():
 @app.route('/status', methods=['GET', 'POST'])
 def CreateStatus():
     if request.method == 'GET':
-        return render_template('template.status.html')
+        return render_template('template.status.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES)
     
     if request.method == 'POST':
         return True

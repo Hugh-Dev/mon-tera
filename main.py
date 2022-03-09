@@ -34,7 +34,7 @@ def index():
                 for (type_id, type_name)  in cursor:
                     CHOICES_TYPES[type_id] = type_name
 
-                print(cursor.fetchall())
+                #print(cursor.fetchall())
 
                 """cursor.close()
                 cnx.close()"""

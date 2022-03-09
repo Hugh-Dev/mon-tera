@@ -91,6 +91,7 @@ def index():
                 update_date = request.form['update_date']
                 current_kw = request.form['current_kw']
                 status_id = request.form['status_id']
+                
                 cursor = cnx.cursor()
 
                 add_device = (
@@ -114,7 +115,7 @@ def index():
                 cnx.commit()
                 #cursor.close()
                 #cnx.close()
-                return render_template('template.400.html')
+                return render_template('template.index.html')
         except Exception as ex:
             return render_template('template.400.html', msg=ex)
 

@@ -215,11 +215,11 @@ def devices():
         else:
             return render_template('template.400.html')
 
-@app.route('api/id/device', methods=['GET'])
+"""@app.route('api/id/device', methods=['GET'])
 def deviceID():
     if request.method == 'GET':
         id = request.args.get('id')
-        return jsonify(id)
+        return jsonify(id)"""
 
 
 

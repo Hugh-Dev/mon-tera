@@ -282,7 +282,7 @@ def binnacle():
             return render_template('template.400.html')
 
 @app.route('/api/device/binnacles', methods=['GET'])
-def binnacledeviceId():
+def binnaclesdeviceId():
     if request.method == 'GET':
         if cnx.is_connected():
             device_id = request.args.get('device_id')
@@ -307,7 +307,7 @@ def binnacledeviceId():
             return render_template('template.400.html')
 
 @app.route('/api/devices/type/binnacles', methods=['GET'])
-def binnacledeviceId():
+def binnaclestypesId():
     if request.method == 'GET':
         if cnx.is_connected():
             type_id = request.args.get('type_id')

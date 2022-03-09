@@ -81,9 +81,10 @@ def index():
         
     
     if request.method == 'POST':
-
+        print('++++++++++++++post+++++++++++++++++++')
         try:
             if cnx.is_connected():
+
                 name = request.form['name']
                 type_id = request.form['type_id']
                 status_id = request.form['status_id']
@@ -91,7 +92,7 @@ def index():
                 update_date = request.form['update_date']
                 current_kw = request.form['current_kw']
                 status_id = request.form['status_id']
-                
+
                 cursor = cnx.cursor()
 
                 add_device = (
@@ -116,7 +117,9 @@ def index():
                 #cursor.close()
                 #cnx.close()
                 return render_template('template.index.html')
+
         except Exception as ex:
+            print('++++++++++++++except+++++++++++++++++++')
             return render_template('template.400.html', msg=ex)
 
 

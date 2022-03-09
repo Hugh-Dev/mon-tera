@@ -195,7 +195,7 @@ def devices():
             cursor = cnx.cursor()
             qr = ("SELECT * FROM types ")
             cursor.execute(qr)
-            devives = {}
+            devices = {}
             for (id, type_id, status_id, created_at, updated_at, current_kw, name)  in cursor:
                 devices['id']= id
                 devices['type_id']= type_id

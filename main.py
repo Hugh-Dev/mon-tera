@@ -244,7 +244,6 @@ def createReading():
                 'updated_at': updated_at
                 }
          
-            cursor = cnx.cursor()
             cursor.execute(add_reading, data_reading)
             cnx.commit()
 

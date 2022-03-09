@@ -44,12 +44,6 @@ def index():
         except Exception as ex:
             return render_template('template.400.html', message=ex)
 
-        finally:
-            if cnx.is_connected():
-                cursor.close()
-                cnx.close()
-                return redirect(url_for('index'))
-
     if request.method == 'POST':
         
         try:

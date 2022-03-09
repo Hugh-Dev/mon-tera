@@ -89,6 +89,7 @@ def index():
                 type_id = request.form['type_id']
                 created_at = request.form['created_at']
                 updated_at = request.form['updated_at']
+                print(updated_at)
                 current_kw = request.form['current_kw']
                 status_id = request.form['status_id']
 
@@ -115,7 +116,7 @@ def index():
                 cnx.commit()
                 #cursor.close()
                 #cnx.close()
-                return render_template('template.index.html')
+                return render_template('template.index.html', )
 
         except Exception as ex:
             print(ex)

@@ -5,7 +5,7 @@ import mysql.connector
 from decouple import config
 
 # SECURITY: secret host used in production!
-PORT = config('PORT')
+PORT_FLASK = config('PORT_FLASK')
 DEBUG = config('DEBUG')
 
 config = {

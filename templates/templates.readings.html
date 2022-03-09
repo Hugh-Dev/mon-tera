@@ -46,14 +46,14 @@
       <div class="row d-flex justify-content-center">
     
         <div class="col-md-6 col-lg-6">
-          <form class="needs-validation" method="POST" action={{ url_for('index') }} novalidate>
+          <form class="needs-validation" method="POST" action={{ url_for('createReading') }} novalidate>
             <div class="row g-3">
            
   
               <div class="col-12">
-                <label for="tipodispositivoId" class="form-label">ID dispositivo</label>
+                <label for="device_id" class="form-label">ID dispositivo</label>
                 <div class="input-group has-validation">
-                  <select class="form-select form-select-sm" name="tipodispositivoId" id="tipodispositivoId" aria-label="tipodispositivoId">
+                  <select class="form-select form-select-sm" name="device_id" id="device_id" aria-label="device_id">
                     <option>...</option>
                     {% for key, value in choices_devices_id.items() %}
                           <option value="{{key}}">{{ value }}</option>
@@ -65,53 +65,45 @@
                 </div>
               </div>
 
-              <div class="col-sm-12">
-                <label for="date" class="form-label">Fecha de alta</label>
-                <input type="date" class="form-control form-control-sm" name="create_date" id="create_date" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Required.
-                </div>
-              </div>
-
-              <div class="col-sm-12">
-                <label for="update_date" class="form-label">fecha de actualización</label>
-                <input type="text" class="form-control form-control-sm" name="update_date" id="update_date" placeholder="" value="{{update_date}}" readonly="true" required>
-                <div class="invalid-feedback">
-                  Required.
-                </div>
-              </div>
-
-              <div class="col-sm-12">
-                <label for="update_date" class="form-label">Potencia actual</label>
-                <div class="input-group input-group-sm mb-3">
-                  <span class="input-group-text">kW</span>
-                  <input type="number" class="form-control form-control-sm" name="current_kw" id="current_kw" placeholder="" value="" required>
-                </div>
-                <div class="invalid-feedback">
-                  Required.
-                </div>
-              </div>
-
               <div class="col-12">
-                <label for="tipodispositivoId" class="form-label">Estatus</label>
+                <label for="type_id" class="form-label">Tipo de dispositivo</label>
                 <div class="input-group has-validation">
-                  <select class="form-select form-select-sm" name="tipodispositivoId" id="tipodispositivoId" aria-label="tipodispositivoId">
+                  <select class="form-select form-select-sm" name="type_id" id="type_id" aria-label="type_id">
                     <option>...</option>
-                    {% for key, value in choices_status.items() %}
+                    {% for key, value in choices_types.items() %}
                           <option value="{{key}}">{{ value }}</option>
                     {% endfor %}
-                  
                   </select>
                   <div class="invalid-feedback">
                     Required.
                   </div>
                 </div>
               </div>
+
+              <div class="col-sm-12">
+                <label for="updated_at" class="form-label">Fecha de actualización</label>
+                <input type="text" class="form-control form-control-sm" name="updated_at" id="updated_at" placeholder="" value="{{updated_at}}" readonly="true" required>
+                <div class="invalid-feedback">
+                  Required.
+                </div>
+              </div>
+
+              <div class="col-sm-12">
+                <label for="ucurrent_power" class="form-label">Potencia actual</label>
+                <div class="input-group input-group-sm mb-3">
+                  <span class="input-group-text">kW</span>
+                  <input type="number" class="form-control form-control-sm" name="current_power" id="current_power" placeholder="" value="" required>
+                </div>
+                <div class="invalid-feedback">
+                  Required.
+                </div>
+              </div>
+
   
             
             <hr class="my-4">
   
-            <button class="w-100 btn btn-primary btn-sm" type="submit">save</button>
+            <button class="w-100 btn btn-primary btn-sm" type="submit">Guardar</button>
           </form>
         </div>
       </div>

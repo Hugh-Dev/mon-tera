@@ -205,10 +205,15 @@ def createReading():
                 for (id, name) in cursor:
                     CHOICES_DEVICES_ID[id] = name
 
-                """Choices """
+                """Choices types"""
+                types_qr = ("SELECT * FROM types ")
+                cursor.execute(types_qr)
+                CHOICES_TYPES = {}
+                for (type_id, type_name)  in cursor:
+                    CHOICES_TYPES[type_id] = type_name
 
 
-                return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID)
+                return render_template('template.readings.html', choices_devices_id=CHOICES_DEVICES_ID, choices_types=CHOICES_TYPES, updated_at=today )
 
                 
         except Exception as ex:

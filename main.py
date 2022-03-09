@@ -217,8 +217,22 @@ def devices():
 def deviceID():
     if request.method == 'GET':
         id = request.args.get('id')
-        return jsonify(id)
+        cursor = cnx.cursor()
+        qr = ("SELECT * FROM devices " "WHERE id={}".format(id))
+        cursor.execute(qr)
+        device = []
+        for (id, type_id, status_id, created_at, updated_at, current_kw, name) in cursor:
+                device.append({
+                    'id':id, 
+                    'type_id':type_id,
+                    'status_id':status_id,
+                    'created_at':created_at,
+                    'updated_at':updated_at,
+                    'current_kw':current_kw,
+                    'name': name
+                    })
 
+        return jsonify(device)
 
 
 if __name__ == "__main__":

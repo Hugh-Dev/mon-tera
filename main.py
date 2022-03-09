@@ -16,32 +16,33 @@ today = datetime.datetime.today()
 def index():
     if request.method == 'GET':
 
-        try:
-            if cnx.is_connected():
+        #try:
+        if cnx.is_connected():
 
-                cursor = cnx.cursor()
+            cursor = cnx.cursor()
 
-                """Choices status"""
-                status_qr = ("SELECT * FROM status ")
-                cursor.execute(status_qr)
-                CHOICES_STATUS = {}
-                for (status_id, status_name)  in cursor:
-                    CHOICES_STATUS[status_id] = status_name
+            """Choices status"""
+            status_qr = ("SELECT * FROM status ")
+            cursor.execute(status_qr)
+            CHOICES_STATUS = {}
+            for (status_id, status_name)  in cursor:
+                CHOICES_STATUS[status_id] = status_name
 
-                """Choices types"""
-                types_qr = ("SELECT * FROM types ")
-                cursor.execute(types_qr)
-                CHOICES_TYPES = {}
-                for (type_id, type_name)  in cursor:
-                    CHOICES_TYPES[type_id] = type_name
+            """Choices types"""
+            types_qr = ("SELECT * FROM types ")
+            cursor.execute(types_qr)
+            CHOICES_TYPES = {}
+            for (type_id, type_name)  in cursor:
+                CHOICES_TYPES[type_id] = type_name
 
 
 
-                return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES, update_date=today)
-
-                
-        except Exception as ex:
-            return render_template('template.400.html', message=ex)
+            return render_template('template.index.html', choices_status=CHOICES_STATUS, choices_types=CHOICES_TYPES, update_date=today)
+        
+        else:
+            return render_template('template.400.html', message='400')  
+        #except Exception as ex:
+        #    return render_template('template.400.html', message=ex)
 
     if request.method == 'POST':
         

@@ -84,15 +84,21 @@ def index():
         
         try:
             if cnx.is_connected():
-                print('++++++++++++++connected+++++++++++++++++++')
 
                 name = request.form['name']
+                print(name)
                 type_id = request.form['type_id']
+                print(type_id)
                 status_id = request.form['status_id']
+                print(status_id)
                 create_date = request.form['create_date']
+                print(create_date)
                 update_date = request.form['update_date']
+                print(update_date)
                 current_kw = request.form['current_kw']
+                print(current_kw)
                 status_id = request.form['status_id']
+                print(status_id)
 
                 cursor = cnx.cursor()
 

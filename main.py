@@ -81,9 +81,10 @@ def index():
         
     
     if request.method == 'POST':
-        print('++++++++++++++post+++++++++++++++++++')
+        
         try:
             if cnx.is_connected():
+                print('++++++++++++++connected+++++++++++++++++++')
 
                 name = request.form['name']
                 type_id = request.form['type_id']

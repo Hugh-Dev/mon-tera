@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-
-from crypt import methods
-from random import choices
-from flask import Flask, request, render_template, url_for, redirect, jsonify
+from flask import Flask, message_flashed, request, render_template, url_for, redirect, jsonify
 from settings import PORT_FLASK, DEBUG, cnx
 import pandas as pd
 import os
@@ -10,17 +7,6 @@ import datetime
 
 
 app = Flask(__name__)
-
-"""CHOICES_TYPES = {
-    'Celda': 'celda',
-    'Aerogenerador': 'aerogenerador',
-    'Turbina hidroelectrica': 'turbina_hidroelectrica'
-} 
-
-CHOICES_STATUS = {
-    'En operacion':'1',
-    'En mantenimiento':'0'
-}"""
 
 today = datetime.datetime.today()
 
@@ -54,34 +40,8 @@ def index():
 
                 
         except Exception as ex:
-            return render_template('template.400.html', msg=ex)
+            return render_template('template.400.html', message=ex)
 
-        """if os.path.exists('./csv/dispositivos.csv'):
-            
-            dispositivos = pd.read_csv('./csv/dispositivos.csv')
-            id = dispositivos['id']
-            count_id = len(id)
-            if id.size > 0:
-                count_id += 1
-            else:
-                count_id += 1
-            id = count_id
-            return render_template('template.index.html', choices_types=CHOICES_TYPES, id=id, update_date=today, choices_status=CHOICES_STATUS )
-        else:
-            dispositivos_csv = pd.DataFrame(columns=['id', 'name', 'type', 'create_date', 'update_date', 'current_kw', 'status'])
-            os.makedirs('./csv', exist_ok=True)
-            dispositivos_csv.to_csv('./csv/dispositivos.csv', index=False)
-            dispositivos = pd.read_csv('./csv/dispositivos.csv')
-            id = dispositivos['id']
-            count_id = len(id)
-            if id.size > 0:
-                count_id += 1
-            else:
-                count_id += 1
-            id = count_id
-            return render_template('template.index.html', choices_types=CHOICES_TYPES, id=id, update_date=today)"""
-        
-    
     if request.method == 'POST':
         
         try:
@@ -222,36 +182,42 @@ def createReading():
             
 
             cursor = cnx.cursor()
-            qr = ("SELECT id, type_id, current_kw, name FROM devices " "WHERE id={}".format(device_id))
+            qr = ("SELECT id, type_id, current_kw, name, status_id FROM devices " "WHERE id={}".format(device_id))
             cursor.execute(qr)
   
             result = []
-            for (id, type_id, current_kw, name) in cursor:
+            for (id, type_id, current_kw, name, status_id) in cursor:
                 result.append(id)
                 result.append(type_id)
                 result.append(current_kw)
                 result.append(name)
+                result.append(status_id)
 
             cursor.close()
 
-            add_reading = (
-                "INSERT INTO readings " 
-                "(device_id, type_id, current_power, updated_at)" 
-                "VALUES (%(device_id)s, %(type_id)s, %(current_power)s, %(updated_at)s)"
-            )
+            if result[4] != 5:
 
-            data_reading = {
-                'device_id': result[0],
-                'type_id': result[1],
-                'current_power': current_power,
-                'updated_at': updated_at
-                }
+                add_reading = (
+                    "INSERT INTO readings " 
+                    "(device_id, type_id, current_power, updated_at)" 
+                    "VALUES (%(device_id)s, %(type_id)s, %(current_power)s, %(updated_at)s)"
+                )
 
-            cursor = cnx.cursor()
-            cursor.execute(add_reading, data_reading)
-            cnx.commit()
+                data_reading = {
+                    'device_id': result[0],
+                    'type_id': result[1],
+                    'current_power': current_power,
+                    'updated_at': updated_at
+                    }
 
-            return redirect(url_for('createReading'))
+                cursor = cnx.cursor()
+                cursor.execute(add_reading, data_reading)
+                cnx.commit()
+
+                return redirect(url_for('createReading'))
+            else:
+                message_flashed = 'El dispositivo se encuentra en matenimiento'
+                render_template('template.400.html', message=message_flashed)
 
         else:
             return render_template('template.400.html')

@@ -110,6 +110,8 @@ def index():
                     'status_id':status_id
                     }
 
+                print(data_device)
+
                 cursor.execute(add_device, data_device)
 
                 # Make sure data is committed to the database

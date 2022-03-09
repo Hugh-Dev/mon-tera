@@ -285,9 +285,9 @@ def binnacle():
 def binnacleId():
     if request.method == 'GET':
         if cnx.is_connected():
-            id = request.args.get('id')
+            device_id = request.args.get('device_id')
             cursor = cnx.cursor()
-            qr = ("SELECT * FROM readings " "WHERE id={}".format(id))
+            qr = ("SELECT * FROM readings " "WHERE device_id={}".format(device_id))
             cursor.execute(qr)
             readings = []
             

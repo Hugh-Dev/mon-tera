@@ -188,7 +188,7 @@ def CreateStatus():
         
             return redirect(url_for('index'))
 
-@app.route('/devices/all', methods['GET'])
+@app.route('/devices', methods=['GET'])
 def devices():
     if request.method == 'GET':
         if cnx.is_connected():

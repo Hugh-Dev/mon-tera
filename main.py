@@ -79,6 +79,7 @@ def CreateStatus():
     
     if request.method == 'POST':
         status_name = request.form['status_name']
+        print(status_name)
         cursor = cnx.cursor()
 
         add_status = ("INSERT INTO status "

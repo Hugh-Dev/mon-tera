@@ -235,5 +235,26 @@ def deviceID():
         return jsonify(device)
 
 
+@app.route('/api/type/device', methods=['GET'])
+def deviceID():
+    if request.method == 'GET':
+        type_id = request.args.get('type_id')
+        cursor = cnx.cursor()
+        qr = ("SELECT * FROM devices " "WHERE type_id={}".format(type_id))
+        cursor.execute(qr)
+        devices_type = []
+        for (id, type_id, status_id, created_at, updated_at, current_kw, name) in cursor:
+                devices_type.append({
+                    'id':id, 
+                    'type_id':type_id,
+                    'status_id':status_id,
+                    'created_at':created_at,
+                    'updated_at':updated_at,
+                    'current_kw':current_kw,
+                    'name': name
+                    })
+
+        return jsonify(devices_type)
+
 if __name__ == "__main__":
     app.run()

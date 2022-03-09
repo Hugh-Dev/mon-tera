@@ -25,7 +25,7 @@ try:
     if cnx.is_connected():
         cursor = cnx.cursor()
         print('200')
-        cnx.close()
+        #cnx.close()
 except Exception as ex:
     print(ex)
 
